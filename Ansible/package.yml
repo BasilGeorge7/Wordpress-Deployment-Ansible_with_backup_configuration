@@ -1,0 +1,27 @@
+---
+- name: "Web Configuration"
+  hosts: centos
+  become: true
+  tasks:
+    - name: "Package Installation"
+      yum:
+        name:
+        - 'httpd'
+        - 'php-fpm'    
+        state: present
+    - name: "service Restart"
+      service:
+        name: 'httpd'
+        state: started
+        enabled: true
+    - name: "Restarting php-fpm"
+      service:
+        name: 'php-fpm'
+        state: started
+        enabled: true
+    - name: "Copying files"
+      copy:
+        src: './web/'
+        dest: '/var/www/html/'
+        owner: 'apache'
+        group: 'apache'
