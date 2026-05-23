@@ -1,0 +1,22 @@
+---
+- name: "wordpress Installation"
+  hosts: centos
+  vars_files: 
+    - variable.yml
+  become: yes
+  tasks:
+    - name: "yum update"
+      yum:
+        name: '*'
+        state: latest
+
+    - name: "package Installation"
+      yum: 
+        name: "{{ packages }}"
+        state: present
+
+    - name: "download latest wordpress"
+      get_url:
+        url: https://wordpress.org/latest.tar.gz
+        dest: /tmp/wordpress.tar.gz
+    

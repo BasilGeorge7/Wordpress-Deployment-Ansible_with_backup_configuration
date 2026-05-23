@@ -1,0 +1,16 @@
+---
+packages:
+  - mysql-client
+  - php-fpm
+  - php-mysql
+  - php-cli
+  - php-curl
+  - php-gd
+  - php-mbstring
+  - php-xml
+  - php-xmlrpc
+  - php-soap
+  - php-intl
+  - php-zip
+  - unzip
+  - wget 
