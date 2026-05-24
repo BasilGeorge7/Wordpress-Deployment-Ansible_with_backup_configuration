@@ -56,39 +56,3 @@ Terraform
 Ansible
 Git
 AWS CLI configured with appropriate IAM permissions
-Project Workflow
-Step 1 – Clone Repository
-git clone <repository-url>
-cd <project-directory>
-Step 2 – Initialize Terraform
-terraform init
-Step 3 – Review Terraform Plan
-terraform plan
-Step 4 – Apply Infrastructure
-terraform apply -auto-approve
-Step 5 – Run Ansible Playbook
-ansible-playbook -i inventory.ini wordpress.yml
-Backup Configuration
-
-The deployment includes an automated backup mechanism that:
-
-Creates database dumps using mysqldump
-Archives WordPress files
-Stores backups locally
-Executes automatically every 15 minutes using cron
-Supports optional remote synchronization via rsync
-Security Features
-SSH key-based authentication
-Controlled ingress rules
-Automated security group management
-Sensitive variable handling through Terraform variables and Ansible Vault support
-Technologies Used
-Technology	Purpose
-Terraform	Infrastructure provisioning
-Ansible	Configuration management
-AWS EC2	Compute hosting
-Route 53	DNS management
-MySQL/MariaDB	Database server
-WordPress	CMS platform
-Cron	Backup scheduling
-Rsync	Remote backup synchronization
