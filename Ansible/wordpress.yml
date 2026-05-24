@@ -49,6 +49,11 @@
         enabled: true
       loop: "{{ services }}"
 
+    - name: Install PyMySQL
+      pip:
+        name: PyMySQL
+        executable: pip3
+  
     - name: "Mysql Installation"
       mysql_user:
         name: root
@@ -79,6 +84,13 @@
         priv:
           '"{{"database"}}".*': 'ALL,GRANT'
 
-          
+    - name: "Restart service"
+      service:
+        name: "{{ item }}"
+        state: restarted
+        enabled: true
+      loop: "{{ services }}"
+
+
 
   
