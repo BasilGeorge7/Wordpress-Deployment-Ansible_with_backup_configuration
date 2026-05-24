@@ -84,6 +84,22 @@
         state: present
         priv: "{{ database }}.*: ALL,GRANT"
 
+    - name: "Copy of backup-script"
+      template:
+        src: ./backup.sh
+        dest: /var/
+
+    - name: "Copy of backup-script"
+      template:
+        src: ~/ansible.pem
+        dest: /var/
+
+    - name: Run script every 5 minutes
+      cron:
+        name: "Backup cron"
+        minute: "*/15"
+        job: "/var/backup.sh"
+
     - name: "Restart service"
       service:
         name: "{{ item }}"
