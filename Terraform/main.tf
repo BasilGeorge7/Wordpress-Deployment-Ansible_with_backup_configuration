@@ -60,9 +60,9 @@ resource "aws_route53_record" "wordpress" {
 }
 
 resource "local_file" "ansible_inventory" {
-    filename = ../Ansible/inventory.txt
+    filename = "../Ansible/inventory.txt"
     content = <<EOT
     [wordpress]
-    ${aws_instance.web.public_ip} ansible_user=ec2-user ansible_ssh_private_key_file=../ansible.pem
+    ${aws_instance.web.public_ip} ansible_user=ec2-user ansible_ssh_private_key_file=~/ansible.pem
     EOT
 }

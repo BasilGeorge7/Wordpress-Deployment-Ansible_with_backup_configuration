@@ -1,6 +1,6 @@
 ---
 - name: "wordpress Installation"
-  hosts: centos
+  hosts: wordpress
   vars_files:
     - variable.yml
   become: yes
@@ -52,4 +52,3 @@
       copy:
         src: ./wp-config.php
         dest: /var/www/html/
-    - name: 
