@@ -5,5 +5,18 @@ packages:
   - unzip
   - wget
   - php-mysqlnd
+  - mysql-server
+  - mysql-client
+  - python3-mysqldb
+  - libmysqlclient-dev
 
+root_password: "root123"
+admin_user: "admin"
+database: "wordpress"
+admin_password: "Basil123"
 httpd-owner: "apache"
+
+
+services:
+  - httpd
+  - mysql-server

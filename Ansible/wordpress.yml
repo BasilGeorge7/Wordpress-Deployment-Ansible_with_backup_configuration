@@ -20,28 +20,17 @@
         url: https://wordpress.org/latest.tar.gz
         dest: /tmp/wordpress.tar.gz
 
-    - name: "Extract and move to document root"
+    - name: "Extract in tmp itself"
       unarchive:
         src: /tmp/wordpress.tar.gz
-        dest: /var/www/html/
+        dest: /tmp/
         remote_src: yes
 
     - name: "Copying"
       copy:
-        src: /var/www/html/wordpress/
+        src: /tmp/wordpress/
         dest: /var/www/html/
         remote_src: yes
-
-    - name: " Remove Wordpress folder"
-      file:
-        path: /var/www/html/wordpress
-        state: absent
-
-    - name: "Restart apache"
-      service:
-        name: httpd
-        state: restarted
-        enabled: true
 
     - name: "copy configuration files"
       copy:
@@ -52,3 +41,44 @@
       copy:
         src: ./wp-config.php
         dest: /var/www/html/
+
+    - name: "Restart service"
+      service:
+        name: "{{ item }}"
+        state: restarted
+        enabled: true
+      loop: "{{ services }}"
+
+    - name: "Mysql Installation"
+      mysql_user:
+        name: root
+        password: "{{root_password}}"
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        host: localhost
+        login_user: root
+        login_password: ''
+        state: present
+
+    - name: "Database creation"
+      mysql_db:
+        name: "{{database}}"
+        state: present
+        login_name: root
+        login_password: "{{root_password}}"
+        login_unix_socket: /run/mysqld/mysqld.sock
+    
+    - name: "User creation with access to database"
+      mysql_user:
+        name: "{{admin}}"
+        password: "{{admin_password}}"
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        host: localhost
+        login_user: root
+        login_password: "{{root_password}}"
+        state: present
+        priv:
+          '"{{"database"}}".*': 'ALL,GRANT'
+
+          
+
+  
