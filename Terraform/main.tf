@@ -1,6 +1,6 @@
 resource "aws_security_group" "rule_web" {
   name        = "Web_Rules"
-  description = "Allow ssh traffic"
+  description = "Allow traffic"
 
   tags = {
     "Name" = var.name
@@ -9,19 +9,11 @@ resource "aws_security_group" "rule_web" {
   }
 }
 
-resource "aws_security_group_rule" "ssh" {
+resource "aws_security_group_rule" "ingress" {
+  for_each          = var.web_ingress
   type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.rule_web.id
-}
-
-resource "aws_security_group_rule" "http" {
-  type              = "ingress"
-  from_port         = 80
-  to_port           = 80
+  from_port         = each.value
+  to_port           = each.value
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.rule_web.id
@@ -47,3 +39,16 @@ resource "aws_instance" "web" {
     "Env"     = var.environment
   }
 }
+
+resource "aws_instance" "backup" {
+  ami                    = var.ami_id
+  instance_type          = var.type
+  key_name               = aws_key_pair.key.key_name
+  vpc_security_group_ids = [aws_security_group.rule_web.id]
+  tags = {
+    "Name"    = var.name
+    "Project" = "backup-${var.name}-${var.environment}"
+    "Env"     = var.environment
+  }
+}
+

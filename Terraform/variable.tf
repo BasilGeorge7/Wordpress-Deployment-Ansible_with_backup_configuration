@@ -10,3 +10,11 @@ variable name {
     type = string
     description = "Name of project"
 }
+variable ami_id {
+    type = string
+    description = "AMI ID of AWS_REGION"
+}
+variable web_ingress{
+    type = set
+    description = "all ports of ingress"
+}
