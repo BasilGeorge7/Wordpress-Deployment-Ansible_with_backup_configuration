@@ -3,8 +3,8 @@ resource "aws_security_group" "rule_web" {
   description = "Allow traffic"
 
   tags = {
-    "Name" = var.name
-    "Env"    = "wordpress-${var.name}-${var.environment}"
+    "Name"    = var.name
+    "Env"     = "wordpress-${var.name}-${var.environment}"
     "Project" = var.environment
   }
 }
@@ -52,10 +52,10 @@ resource "aws_instance" "backup" {
   }
 }
 resource "aws_route53_record" "wordpress" {
-  allow_overwrite = true
-  name            = var.domain
-  ttl             = 50
-  type            = "A"
-  zone_id         = data.aws_route53_zone.dns.zone_id
+  name    = var.domain
+  ttl     = 50
+  type    = "A"
+  zone_id = data.aws_route53_zone.dns.zone_id
+  records = [aws_instance.web.public_ip]
 }
 
