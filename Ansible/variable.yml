@@ -5,11 +5,7 @@ packages:
   - unzip
   - wget
   - php-mysqlnd
-  - mysql-server
-  - mysql-client
-  - python3-mysqldb
-  - libmysqlclient-dev
-
+  - mariadb1011-server
 root_password: "root123"
 admin_user: "admin"
 database: "wordpress"
@@ -19,4 +15,4 @@ httpd-owner: "apache"
 
 services:
   - httpd
-  - mysql-server
+  - mariadb 
