@@ -1,58 +1,71 @@
-#WordPress Infrastructure Automation Project#
-Overview
+# 🚀 Project Explanation
 
-This project automates the complete deployment and configuration of a production-ready WordPress environment using:
+This project demonstrates a complete **end-to-end automated deployment of WordPress infrastructure** using Infrastructure as Code and Configuration Management tools.
 
-Terraform for infrastructure provisioning
-Ansible for server configuration and application deployment
-Amazon Web Services services such as EC2, Security Groups, Key Pairs, and Route 53
+It is designed in two main stages to ensure scalability, automation, and production readiness.
 
-The solution follows a two-stage automation workflow:
+---
 
-Infrastructure provisioning using Terraform
-Configuration management and application deployment using Ansible
-Architecture
-Stage 1 – Infrastructure Provisioning (Terraform)
+## 🏗️ Stage 1: Infrastructure Provisioning (Terraform)
 
-Terraform is used to provision the complete AWS infrastructure required for WordPress hosting.
+In this stage, Terraform is used to build the complete AWS cloud infrastructure.
 
-Resources Created
-EC2 instance provisioning
-Key Pair creation
-Security Group creation
-Ingress and egress rule configuration
-Route 53 DNS record creation
-Dynamic inventory generation for Ansible
-Features
-Modular Infrastructure as Code
-Automated security rule configuration
-Dynamic inventory output for seamless Ansible integration
-Route 53 integration for domain mapping
-Stage 2 – Configuration Management (Ansible)
+### 🔹 What Terraform Creates:
 
-After infrastructure creation, Ansible uses the Terraform-generated inventory file to configure the server automatically.
+- EC2 instance for hosting WordPress
+- Key Pair for secure SSH access
+- Security Group with required inbound/outbound rules
+- Security rule configuration (HTTP, HTTPS, SSH, MySQL)
+- Route 53 DNS record for domain mapping
+- Dynamic inventory file for Ansible automation
 
-Automated Configuration
-Apache/Nginx installation
-PHP installation and configuration
-MySQL/MariaDB server installation
-WordPress installation and deployment
-WordPress database creation
-wp-config.php configuration
-File permission management
-Backup automation setup
-Backup Automation
-Website file backup
-MySQL database backup
-Automated backup scheduling using cron
-Backup execution every 15 minutes
-Optional remote backup synchronization using rsync
-Prerequisites
+### 🔹 Outcome:
 
-Before running the project, ensure the following are installed:
+At the end of this stage, a fully configured AWS infrastructure is ready and an inventory file is generated for Ansible.
 
-Required Tools
+---
+
+## ⚙️ Stage 2: Configuration Management (Ansible)
+
+Once infrastructure is ready, Ansible takes over for server configuration and application deployment.
+
+### 🔹 What Ansible Configures:
+
+- Apache/Nginx web server installation
+- PHP installation and configuration
+- MySQL/MariaDB server setup
+- WordPress installation and deployment
+- Database creation and user privileges
+- wp-config.php file configuration
+- File permissions setup
+
+---
+
+## 🗄️ Backup & Automation
+
+An automated backup system is implemented for data protection.
+
+### 🔹 Features:
+
+- Website file backup
+- Database backup using mysqldump
+- Cron job scheduling (every 15 minutes)
+- Optional remote backup using rsync
+- Automatic cleanup of old backups
+
+---
+
+## 🔄 Workflow Summary
+
+```text
 Terraform
-Ansible
-Git
-AWS CLI configured with appropriate IAM permissions
+   ↓
+AWS Infrastructure Provisioning
+   ↓
+Inventory File Generation
+   ↓
+Ansible Execution
+   ↓
+WordPress Deployment + Configuration
+   ↓
+Backup Automation Setup
