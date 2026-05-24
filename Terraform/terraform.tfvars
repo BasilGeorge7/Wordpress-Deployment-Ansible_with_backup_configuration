@@ -4,3 +4,4 @@ environment = "Production"
 name = "wordpress"
 ami_id ="ami-09ed39e30153c3bf9"
 web_ingress = ["80","22","443"]
+domain = "wordpress.basilg.shop"

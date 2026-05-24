@@ -35,7 +35,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.rule_web.id]
   tags = {
     "Name"    = var.name
-    "Project" = "wordpress-${var.name}-${var.environment}"
+    "Project" = "${var.name}-${var.environment}"
     "Env"     = var.environment
   }
 }
@@ -46,9 +46,16 @@ resource "aws_instance" "backup" {
   key_name               = data.aws_key_pair.existing.key_name
   vpc_security_group_ids = [aws_security_group.rule_web.id]
   tags = {
-    "Name"    = var.name
+    "Name"    = "${var.name}-backup"
     "Project" = "backup-${var.name}-${var.environment}"
     "Env"     = var.environment
   }
+}
+resource "aws_route53_record" "wordpress" {
+  allow_overwrite = true
+  name            = var.domain
+  ttl             = 50
+  type            = "A"
+  zone_id         = data.aws_route53_zone.dns.zone_id
 }
 

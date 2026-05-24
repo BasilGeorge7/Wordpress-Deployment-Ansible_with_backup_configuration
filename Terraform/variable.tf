@@ -21,3 +21,7 @@ variable web_ingress{
 variable type{
 type = string
 }
+variable domain{
+    type = string
+    description = "Domain Name"
+}
