@@ -1,0 +1,28 @@
+---
+- name: "Web Configuration"
+  hosts: centos
+  become: true
+  vars:   
+    services:
+      - "httpd"
+      - "php-fpm"
+  vars_files:
+    - variable.yml
+  tasks:
+    - name: "Package Installation"
+      yum:
+        name: "{{ packages }}"   
+        state: present
+    - name: "service Restart"
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop: "{{ services }}"
+    - name: "Copying files"
+      copy:
+        src: './web/'
+        dest: '/var/www/html/'
+        owner: 'apache'
+        group: 'apache'
+

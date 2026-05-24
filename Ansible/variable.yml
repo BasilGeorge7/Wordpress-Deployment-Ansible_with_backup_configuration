@@ -1,0 +1,19 @@
+---
+packages:
+  - httpd
+  - php-fpm
+  - unzip
+  - wget
+  - php-mysqlnd
+  - mariadb1011-server
+  - python3-pip
+root_password: "root123"
+admin: "admin"
+database: "wordpress"
+admin_password: "Basil123"
+httpd-owner: "apache"
+
+
+services:
+  - httpd
+  - mariadb 
