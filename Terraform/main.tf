@@ -10,7 +10,7 @@ resource "aws_security_group" "rule_web" {
 }
 
 resource "aws_security_group_rule" "ingress" {
-  for_each          = var.web_ingress
+  for_each          = toset(var.web_ingress)
   type              = "ingress"
   from_port         = each.value
   to_port           = each.value
@@ -31,11 +31,11 @@ resource "aws_security_group_rule" "allow_all" {
 resource "aws_instance" "web" {
   ami                    = var.ami_id
   instance_type          = var.type
-  key_name               = aws_key_pair.key.key_name
+  key_name               = data.aws_key_pair.existing.key_name
   vpc_security_group_ids = [aws_security_group.rule_web.id]
   tags = {
     "Name"    = var.name
-    "Project" = "zomato-${var.name}-${var.environment}"
+    "Project" = "wordpress-${var.name}-${var.environment}"
     "Env"     = var.environment
   }
 }
@@ -43,7 +43,7 @@ resource "aws_instance" "web" {
 resource "aws_instance" "backup" {
   ami                    = var.ami_id
   instance_type          = var.type
-  key_name               = aws_key_pair.key.key_name
+  key_name               = data.aws_key_pair.existing.key_name
   vpc_security_group_ids = [aws_security_group.rule_web.id]
   tags = {
     "Name"    = var.name

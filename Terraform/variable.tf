@@ -15,6 +15,9 @@ variable ami_id {
     description = "AMI ID of AWS_REGION"
 }
 variable web_ingress{
-    type = set
+    type = list
     description = "all ports of ingress"
+}
+variable type{
+type = string
 }
