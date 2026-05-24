@@ -38,7 +38,7 @@
         dest: /etc/httpd/conf.d/wordpress.conf
 
     - name: "Copy of wp-config"
-      copy:
+      template:
         src: ./wp-config.php
         dest: /var/www/html/
 
@@ -58,31 +58,31 @@
       mysql_user:
         name: root
         password: "{{root_password}}"
-        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_unix_socket: /var/lib/mysql/mysql.sock
         host: localhost
         login_user: root
         login_password: ''
         state: present
+      ignore_errors: true
 
     - name: "Database creation"
       mysql_db:
         name: "{{database}}"
         state: present
-        login_name: root
+        login_user: root
         login_password: "{{root_password}}"
-        login_unix_socket: /run/mysqld/mysqld.sock
+        login_unix_socket: /var/lib/mysql/mysql.sock
     
     - name: "User creation with access to database"
       mysql_user:
         name: "{{admin}}"
         password: "{{admin_password}}"
-        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_unix_socket: /var/lib/mysql/mysql.sock
         host: localhost
         login_user: root
         login_password: "{{root_password}}"
         state: present
-        priv:
-          '"{{"database"}}".*': 'ALL,GRANT'
+        priv: "{{ database }}.*: ALL,GRANT"
 
     - name: "Restart service"
       service:

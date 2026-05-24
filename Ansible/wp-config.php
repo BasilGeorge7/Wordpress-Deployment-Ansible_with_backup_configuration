@@ -1,12 +1,13 @@
 <?php
+$table_prefix = 'wp_';
 
-define( 'DB_NAME', 'database_name_here' );
+define( 'DB_NAME', '{{ database }}' );
 
 /** Database username */
-define( 'DB_USER', 'username_here' );
+define( 'DB_USER', '{{ admin }}' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'password_here' );
+define( 'DB_PASSWORD', '{{ admin_password }}' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );

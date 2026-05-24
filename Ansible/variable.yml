@@ -8,7 +8,7 @@ packages:
   - mariadb1011-server
   - python3-pip
 root_password: "root123"
-admin_user: "admin"
+admin: "admin"
 database: "wordpress"
 admin_password: "Basil123"
 httpd-owner: "apache"
