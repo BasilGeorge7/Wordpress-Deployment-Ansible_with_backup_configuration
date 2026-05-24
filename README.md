@@ -1,4 +1,4 @@
-WordPress Infrastructure Automation Project
+#WordPress Infrastructure Automation Project#
 Overview
 
 This project automates the complete deployment and configuration of a production-ready WordPress environment using:
