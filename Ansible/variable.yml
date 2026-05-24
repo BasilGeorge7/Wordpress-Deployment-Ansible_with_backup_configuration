@@ -6,6 +6,7 @@ packages:
   - wget
   - php-mysqlnd
   - mariadb1011-server
+  - python3-pip
 root_password: "root123"
 admin_user: "admin"
 database: "wordpress"
